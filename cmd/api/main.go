@@ -30,8 +30,10 @@ func main() {
 	route.GET("/exercises/:id", middleware.WithAuth(), eu.GetExerciseByID)
 	route.GET("/exercises/:id/scores", middleware.WithAuth(), eu.GetScore)
 
-	// usecase endpoint
-	route.GET("/questions", middleware.WithAuth(), qu.GetQuestions)
+	// usecase question endpoint
+	route.GET("/question", middleware.WithAuth(), qu.GetQuestions)
+
+	// usecase answer endpoint
 	route.GET("/answer", middleware.WithAuth(), an.GetAnswers)
 
 	// user endpoint
