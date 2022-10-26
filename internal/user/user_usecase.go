@@ -2,6 +2,7 @@ package user
 
 import (
 	"course/internal/domain"
+	"fmt"
 
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
@@ -32,6 +33,11 @@ func (uu UserUsecase) Register(c *gin.Context) {
 		})
 		return
 	}
+
+	fmt.Println("user.id:", user.ID)
+	fmt.Println("user.name:", user.Name)
+	fmt.Println("user.password:", user.Password)
+	fmt.Println("user.nohp:", user.NoHp)
 
 	if err := uu.db.Create(&user).Error; err != nil {
 		c.JSON(500, map[string]string{
@@ -75,6 +81,8 @@ func (uu UserUsecase) Login(c *gin.Context) {
 
 	var user domain.User
 	err := uu.db.Where("email = ?", userRequest.Email).Take(&user).Error
+	fmt.Println("userRequest.Email:", userRequest.Email)
+	fmt.Println("err:", err)
 	if err != nil {
 		c.JSON(400, map[string]string{
 			"message": "invalid username or password",
