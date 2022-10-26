@@ -32,6 +32,7 @@ func main() {
 
 	// usecase question endpoint
 	route.GET("/question", middleware.WithAuth(), qu.GetQuestions)
+	route.POST("/question", middleware.WithAuth(), qu.Insert)
 
 	// usecase answer endpoint
 	route.GET("/answer", middleware.WithAuth(), an.GetAnswers)
