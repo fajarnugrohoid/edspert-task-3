@@ -1,9 +1,11 @@
 package main
 
 import (
+	"course/internal/answer"
 	"course/internal/database"
 	"course/internal/exercise"
 	"course/internal/middleware"
+	"course/internal/question"
 	"course/internal/user"
 
 	"github.com/gin-gonic/gin"
@@ -20,14 +22,21 @@ func main() {
 
 	dbConn := database.NewDatabaseConn()
 	eu := exercise.NewExerciseUsecase(dbConn)
+	qu := question.NewQuestionUsecase(dbConn)
+	an := answer.NewAnswerUsecase(dbConn)
 	uu := user.NewUserUsecase(dbConn)
 
-	// exercise endpoint
+	// usecase endpoint
 	route.GET("/exercises/:id", middleware.WithAuth(), eu.GetExerciseByID)
 	route.GET("/exercises/:id/scores", middleware.WithAuth(), eu.GetScore)
+
+	// usecase endpoint
+	route.GET("/questions", middleware.WithAuth(), qu.GetQuestionByID)
+	route.GET("/answer", middleware.WithAuth(), an.GetAnswerByID)
 
 	// user endpoint
 	route.POST("/register", uu.Register)
 	route.POST("/login", uu.Login)
+
 	route.Run(":1234")
 }
