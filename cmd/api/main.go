@@ -36,6 +36,7 @@ func main() {
 
 	// usecase answer endpoint
 	route.GET("/answer", middleware.WithAuth(), an.GetAnswers)
+	route.POST("/answer", middleware.WithAuth(), an.Insert)
 
 	// user endpoint
 	route.POST("/register", uu.Register)
