@@ -31,8 +31,8 @@ func main() {
 	route.GET("/exercises/:id/scores", middleware.WithAuth(), eu.GetScore)
 
 	// usecase endpoint
-	route.GET("/questions", middleware.WithAuth(), qu.GetQuestionByID)
-	route.GET("/answer", middleware.WithAuth(), an.GetAnswerByID)
+	route.GET("/questions", middleware.WithAuth(), qu.GetQuestions)
+	route.GET("/answer", middleware.WithAuth(), an.GetAnswers)
 
 	// user endpoint
 	route.POST("/register", uu.Register)
